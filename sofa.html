@@ -16,12 +16,28 @@
     <h3 class="btn btn-info" id="status">Status</h3>
   </center>
   <script>
+    status1="";
       function preload(){
     img=loadImage("sofa.jfif")
 }
 function setup(){
     canvas=createCanvas(650,480);
     canvas.center();
+    objectdetector=ml5.objectDetector("cocossd",modelloaded);
+    document.getElementById("status").innerHTML="Status : Detecting Objects";
+}
+function modelloaded(){
+    console.log("modelloaded");
+    status1="true";
+    objectdetector.detect(img,getresult);
+}
+function getresult(error,results){
+    if(error){
+        console.log(error);
+    }
+    else{
+        console.log(results);
+    }
 }
 function draw(){
    image(img,0,0,650,480);
